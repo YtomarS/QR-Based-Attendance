@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>QR Code Attendance System</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- QR Code generator -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script> 
+  <!-- QR Code scanner -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <!-- Add html2canvas CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <!-- Export data as PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <div class="header"> 
+    <img src="logo.jpeg" alt="Logo" /> 
+    <h1>QR Code Attendance</h1>
+  </div>
+ 
+  <div class="container">
+    <div class="section">
+      <h2>Generate New Student QR Code</h2>
+      <input type="text" id="name" placeholder="Enter Name" required /> 
+      <input type="number" id="roll" placeholder="Enter Roll Number" required />
+      <button id="generateBtn">Generate QR Code</button>
+    </div>
+
+    <div id="qrDisplayContainer" class="section" style="display: none; text-align: center; min-width: 220px;">
+      <h2>Generated QR Code</h2>
+      <div id="userInfo" style="margin-bottom: 10px;"></div>
+      <div id="qrcode"></div>
+      <button id="downloadQrBtn" style="margin-top: 10px;">Download QR Code</button>
+    </div>
+
+    <div class="section">
+      <h2>Mark Attendance (Scan QR)</h2>
+      <div id="reader"></div>
+      <button id="startScanBtn">Start Scanning</button>
+      <button id="stopScanBtn" style="display:none;">Stop Scanning</button>
+    </div>
+  </div>
+
+  <div class="attendance-section">
+    <h2>Attendance Table</h2>
+    <span style="position: relative;">
+      <label style="font-weight: 600; font-size: 20px;" for="date">Select Date :</label>
+      <input type="date" id="date" />
+    </span>
+
+    <select name="Subject" id="subject">
+      <option value="" disabled selected>Choose Subject :</option>
+      <option value="AFSWD">AFSWD</option>
+      <option value="Compiler Design">Compiler Design</option>
+      <option value="SOA">SOA</option>
+      <option value="Math">Math</option>
+    </select>
+
+    <table id="attendanceTable">
+      <thead>
+        <tr>
+          <th>Roll Number</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Photo</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <span>
+      <button id="pdfBtn">Export to PDF</button>
+      <button id="clrBtn">Clear Data</button>
+    </span>
+  </div>
+
+  <!-- Hidden elements -->
+  <video id="video" style="display: none;" autoplay></video>
+  <canvas style="display: none;" id="canvas"></canvas>
+  <img id="photo" style="display: none;" alt="Captured photo" />
+
+  <script src="script.js"></script>
+</body>
+</html>
